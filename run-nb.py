@@ -17,7 +17,7 @@ def send_email(notebook, out_path, config, is_error=False):
                           subject=subject,
                           mail_from=email)
     filename = '%s.html' % out_path
-    message.attach(data=open(filename, 'rb'), filename=filename)
+    message.attach(data=open(filename, 'rb'), filename='%s.html' % out_path.name)
     smtp = {'host': 'smtp.mailjet.com', 'port': 465, 'ssl': True,
             'user': config.get('email', 'smtp_user'),
             'password': config.get('email', 'smtp_password')}
@@ -30,6 +30,10 @@ def send_email(notebook, out_path, config, is_error=False):
 def execute(notebook_file, settings):
     if not Path(settings).exists():
         print('No config file %s' % settings)
+        return
+
+    if not Path(notebook_file).exists():
+        print('Notebook does not exist at %s' % notebook_file)
         return
 
     config = configparser.ConfigParser()
