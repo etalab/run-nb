@@ -1,0 +1,4 @@
+config.ini
+output/
+.ipynb_checkpoints/
+input/
