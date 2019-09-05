@@ -6,11 +6,11 @@ from lib.nbrun import run_notebook
 from pathlib import Path
 
 
-def send_email(notebook, out_path, config, is_error=False):
+def send_email(notebook, out_path, config, email=None, is_error=False):
     if 'email' not in config.sections() or not config.get('email', 'recipient'):
         print('Not sending email, config is not set')
         return
-    email = config.get('email', 'recipient')
+    email = email or config.get('email', 'recipient')
     message = 'Notebook output is attached.'
     subject = '%s for notebook %s' % ('ERROR' if is_error else 'SUCCESS', notebook)
     message = emails.html(html='<p>%s</p>' % message,
@@ -27,7 +27,8 @@ def send_email(notebook, out_path, config, is_error=False):
 @click.command()
 @click.argument('notebook_file')
 @click.option('--settings', default='config.ini', help='Config file')
-def execute(notebook_file, settings):
+@click.option('--mail-to', default=None, help='Recipient email')
+def execute(notebook_file, settings, mail_to):
     if not Path(settings).exists():
         print('No config file %s' % settings)
         return
@@ -56,7 +57,7 @@ def execute(notebook_file, settings):
         print(e)
         is_error = True
     finally:
-        send_email(notebook_name, out_path, config, is_error=is_error)
+        send_email(notebook_name, out_path, config, email=mail_to, is_error=is_error)
 
 
 if __name__ == '__main__':
