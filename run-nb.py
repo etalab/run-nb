@@ -28,7 +28,8 @@ def send_email(notebook, out_path, config, email=None, is_error=False):
 @click.argument('notebook_file')
 @click.option('--settings', default='config.ini', help='Config file')
 @click.option('--mail-to', default=None, help='Recipient email')
-def execute(notebook_file, settings, mail_to):
+@click.option('--mail-only-on-error', is_flag=True, default=False)
+def execute(notebook_file, settings, mail_to, mail_only_on_error):
     if not Path(settings).exists():
         print('No config file %s' % settings)
         return
@@ -57,7 +58,8 @@ def execute(notebook_file, settings, mail_to):
         print(e)
         is_error = True
     finally:
-        send_email(notebook_name, out_path, config, email=mail_to, is_error=is_error)
+        if is_error or not mail_only_on_error:
+            send_email(notebook_name, out_path, config, email=mail_to, is_error=is_error)
 
 
 if __name__ == '__main__':
