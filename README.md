@@ -14,3 +14,15 @@ mv config.ini.example config.ini
 # set email in config.ini
 python run-nb.py example.ipynb
 ```
+
+### PDF attachment
+
+The report can be sent in PDF too, using the `--pdf` option.
+
+```
+python run-nb.py --pdf example.ipynb
+```
+
+This requires `wkhtmltopdf`, cf useful links:
+- https://github.com/JazzCore/python-pdfkit/wiki/Installing-wkhtmltopdf
+- https://github.com/JazzCore/python-pdfkit/wiki/Using-wkhtmltopdf-without-X-server
