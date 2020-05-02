@@ -19,6 +19,7 @@ def send_email(notebook, out_path, config, pdf, email=None, is_error=False):
     filename = '%s.html' % out_path
     message.attach(data=open(filename, 'rb'), filename='%s.html' % out_path.name)
     if pdf:
+        filename = '%s.pdf' % out_path
         message.attach(data=open(filename, 'rb'), filename='%s.pdf' % out_path.name)
     smtp = {'host': 'smtp.mailjet.com', 'port': 465, 'ssl': True,
             'user': config.get('email', 'smtp_user'),
