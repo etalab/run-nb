@@ -6,7 +6,7 @@ from lib.nbrun import run_notebook
 from pathlib import Path
 
 
-def send_email(notebook, out_path, config, email=None, is_error=False):
+def send_email(notebook, out_path, config, pdf, email=None, is_error=False):
     if 'email' not in config.sections() or not config.get('email', 'recipient'):
         print('Not sending email, config is not set')
         return
@@ -18,6 +18,8 @@ def send_email(notebook, out_path, config, email=None, is_error=False):
                           mail_from=email)
     filename = '%s.html' % out_path
     message.attach(data=open(filename, 'rb'), filename='%s.html' % out_path.name)
+    if pdf:
+        message.attach(data=open(filename, 'rb'), filename='%s.pdf' % out_path.name)
     smtp = {'host': 'smtp.mailjet.com', 'port': 465, 'ssl': True,
             'user': config.get('email', 'smtp_user'),
             'password': config.get('email', 'smtp_password')}
@@ -29,7 +31,8 @@ def send_email(notebook, out_path, config, email=None, is_error=False):
 @click.option('--settings', default='config.ini', help='Config file')
 @click.option('--mail-to', default=None, help='Recipient email')
 @click.option('--mail-only-on-error', is_flag=True, default=False)
-def execute(notebook_file, settings, mail_to, mail_only_on_error):
+@click.option('--pdf', is_flag=True, default=False)
+def execute(notebook_file, settings, mail_to, mail_only_on_error, pdf):
     if not Path(settings).exists():
         print('No config file %s' % settings)
         return
@@ -51,15 +54,22 @@ def execute(notebook_file, settings, mail_to, mail_only_on_error):
 
     is_error = False
     try:
+        out_html = '%s.html' % out_path
         run_notebook(notebook_file, save_html=True, suffix=suffix,
                      out_path_ipynb='%s.ipynb' % out_path,
-                     out_path_html='%s.html' % out_path)
+                     out_path_html=out_html)
+        if pdf:
+            import pdfkit
+            pdfkit.from_file(out_html, '%s.pdf' % out_path)
     except Exception as e: # noqa
         print(e)
         is_error = True
     finally:
         if is_error or not mail_only_on_error:
-            send_email(notebook_name, out_path, config, email=mail_to, is_error=is_error)
+            send_email(
+                notebook_name, out_path, config, pdf,
+                email=mail_to, is_error=is_error
+            )
 
 
 if __name__ == '__main__':
