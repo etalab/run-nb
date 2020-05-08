@@ -33,8 +33,13 @@ def notebook(notebook):
         path.relative_to(output_folder)
     except ValueError:
         abort(404)
-    outputs = sorted([x.parts[-1] for x in path.iterdir() if x.suffix == '.html'], reverse=True)
-    return render_template('notebook.html', outputs=outputs, notebook=notebook)
+    res = []
+    outputs = sorted([x for x in path.iterdir() if x.suffix == '.html'], reverse=True)
+    for o in outputs:
+        with open(o) as ofile:
+            is_error = 'Error occurred during execution' in ofile.read()
+        res.append((o.parts[-1], is_error))
+    return render_template('notebook.html', outputs=res, notebook=notebook)
 
 
 @app.route('/notebook/<notebook>/<output>')
