@@ -2,3 +2,7 @@ emails
 click
 jupyter
 pdfkit
+toml
+apscheduler
+sqlalchemy
+psycopg2-binary

@@ -2,3 +2,5 @@ config.ini
 output/
 .ipynb_checkpoints/
 input/
+jobs.db
+jobs.toml
