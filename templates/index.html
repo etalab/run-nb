@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>run-nb</h1>
+<ul>
+    {% for n in notebooks %}
+    <li><a href="{{ url_for('notebook', notebook=n) }}">{{ n }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ notebook }}</h1>
+<ul>
+    {% for o in outputs %}
+    <li><a href="{{ url_for('output', notebook=notebook, output=o) }}">{{ o }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

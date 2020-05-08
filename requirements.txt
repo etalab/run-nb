@@ -1,8 +1,7 @@
 emails
 click
+flask
 jupyter
 pdfkit
 toml
 apscheduler
-sqlalchemy
-psycopg2-binary
