@@ -1,9 +1,0 @@
-[general]
-output_folder=output/
-notebook_folder = ~/notebooks
-
-# delete those lines in order not to send email reports
-[email]
-recipient = test@test.fr
-smtp_user = xxx
-smtp_password = yyy

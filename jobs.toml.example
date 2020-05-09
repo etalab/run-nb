@@ -1,6 +1,0 @@
-[example]
-cron = "* * * * *"
-notebook = "/home/notebook/example.ipynb"
-mail_to = "user@me.com"
-only_errors = false
-pdf = true

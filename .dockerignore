@@ -1,6 +1,5 @@
 output/
 .ipynb_checkpoints/
 input/
-jobs.db
 pyenv/
 __pycache__/

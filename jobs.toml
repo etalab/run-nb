@@ -1,0 +1,14 @@
+# [moderation-daily]
+# cron = "14 8 * * *"
+# notebook = "moderation/moderation.ipynb"
+# only_errors = false
+# pdf = true
+
+# [moderation-weekly]
+# cron = "14 8 * * 1"
+# notebook = "moderation/weekly-digest.ipynb"
+
+[example]
+cron = "* * * * *"
+notebook = "https://github.com/abulte/run-nb/raw/master/example.ipynb"
+mail_to = "alexandre.bulte@data.gouv.fr"
