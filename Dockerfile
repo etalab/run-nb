@@ -8,7 +8,7 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists
 
 WORKDIR /app
-COPY requirements.txt /app/requirements.txt
+COPY requirements/install.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 COPY . /app
 # TODO: volume for output?
