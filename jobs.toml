@@ -1,23 +1,18 @@
-# [moderation-daily]
-# cron = "14 8 * * *"
-# notebook = "moderation/moderation.ipynb"
-# only_errors = false
-# pdf = true
-
-# [moderation-weekly]
-# cron = "14 8 * * 1"
-# notebook = "moderation/weekly-digest.ipynb"
-
-[example]
-cron = "* * * * *"
-notebook = "https://github.com/abulte/run-nb/raw/master/example.ipynb"
-mail_to = "alexandre.bulte@data.gouv.fr"
-
-[stats-weekly]
-cron = "14 8 * * 1"
-notebook = "https://github.com/etalab/notebooks/raw/schedule/stats/piwik-top-weekly.ipynb"
-only_errors = true
-pdf = false
+[moderation-daily]
+cron = "0 */1 * * *"
+notebook = "https://github.com/etalab/notebooks/raw/schedule/moderation/moderation.ipynb"
 depends_on = [
-    { name = "piwik-top", url = "https://github.com/etalab/notebooks/raw/schedule/stats/piwik-top.ipynb" }
+    { name = "moderation_fn", url = "https://github.com/etalab/notebooks/raw/schedule/moderation/moderation_fn.ipynb" }
 ]
+only_errors = false
+pdf = true
+recipient_alias_dgf = "test"
+
+# [stats-weekly]
+# cron = "14 8 * * 1"
+# notebook = "https://github.com/etalab/notebooks/raw/schedule/stats/piwik-top-weekly.ipynb"
+# only_errors = true
+# pdf = false
+# depends_on = [
+#     { name = "piwik-top", url = "https://github.com/etalab/notebooks/raw/schedule/stats/piwik-top.ipynb" }
+# ]

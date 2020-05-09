@@ -42,7 +42,14 @@ def get_job_execution_info(job_name):
 
     mail_config = config.get_mail_config()
     # mail_to can be configured per notebook via env var
-    mail_to = config.get_var(f'mail_for_{job_name}', mail_config['recipient'])
+    mail_to = config.get_var(f'mail_for_{job_name}', 'not-found')
+    # or via an alias @data.gouv.fr in TOML
+    if mail_to == 'not-found':
+        mail_to = job_data.get('recipient_alias_dgf')
+        mail_to = f'{mail_to}@data.gouv.fr' if mail_to else None
+    # or get the default value
+    if mail_to == 'not-found':
+        mail_to = mail_config['recipient']
     return (job_name, nb_path), {
         'mail_to': mail_to,
         'only_errors': job_data.get('only_errors'),

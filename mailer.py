@@ -13,7 +13,7 @@ def send_email(notebook, out_path, pdf, email=None, is_error=False):
                           mail_from=email)
     filename = '%s.html' % out_path
     message.attach(data=open(filename, 'rb'), filename='%s.html' % out_path.name)
-    if pdf:
+    if pdf and not is_error:
         filename = '%s.pdf' % out_path
         message.attach(data=open(filename, 'rb'), filename='%s.pdf' % out_path.name)
     smtp = {'host': mail_config['smtp_host'], 'port': 465, 'ssl': True,
