@@ -1,18 +1,15 @@
-import configparser
-
 from pathlib import Path
 
 from flask import Flask, render_template, send_from_directory, abort
+
+import config
 
 from jobs import get_jobs
 
 app = Flask(__name__)
 jobs = get_jobs()
 
-SETTINGS = 'config.ini'
-config = configparser.ConfigParser()
-config.read(SETTINGS)
-output_folder = Path(config.get('general', 'output_folder'))
+output_folder = Path(config.get_nb_config()['output_folder'])
 notebooks = [x.parts[-1] for x in output_folder.iterdir() if x.is_dir()]
 
 
@@ -26,7 +23,6 @@ def notebook(notebook):
     if notebook not in notebooks:
         abort(404)
     path = Path(output_folder) / notebook
-    print(path)
     # protect against tree crawling
     try:
         path.resolve()

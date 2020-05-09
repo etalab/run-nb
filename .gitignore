@@ -1,6 +1,8 @@
 config.ini
+config.ini.local
 output/
 .ipynb_checkpoints/
 input/
 jobs.db
 jobs.toml
+notebooks/

@@ -1,11 +1,11 @@
 import emails
 
+import config
 
-def send_email(notebook, out_path, config, pdf, email=None, is_error=False):
-    if 'email' not in config.sections() or not config.get('email', 'recipient'):
-        print('Not sending email, config is not set')
-        return
-    email = email or config.get('email', 'recipient')
+
+def send_email(notebook, out_path, pdf, email=None, is_error=False):
+    mail_config = config.get_mail_config()
+    email = email or mail_config['recipient']
     message = 'Notebook output is attached.'
     subject = '%s for notebook %s' % ('ERROR' if is_error else 'SUCCESS', notebook)
     message = emails.html(html='<p>%s</p>' % message,
@@ -16,7 +16,7 @@ def send_email(notebook, out_path, config, pdf, email=None, is_error=False):
     if pdf:
         filename = '%s.pdf' % out_path
         message.attach(data=open(filename, 'rb'), filename='%s.pdf' % out_path.name)
-    smtp = {'host': 'smtp.mailjet.com', 'port': 465, 'ssl': True,
-            'user': config.get('email', 'smtp_user'),
-            'password': config.get('email', 'smtp_password')}
+    smtp = {'host': mail_config['smtp_host'], 'port': 465, 'ssl': True,
+            'user': mail_config['smtp_user'],
+            'password': mail_config['smtp_password']}
     message.send(to=email, smtp=smtp)

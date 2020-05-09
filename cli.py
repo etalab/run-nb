@@ -15,10 +15,10 @@ def cli():
     pass
 
 
-def execute_wrapper(nb_name, nb_path, config,
+def execute_wrapper(nb_name, nb_path,
                     mail_to=None, only_errors=False, pdf=False):
     click.echo(f'<-- [{datetime.now().isoformat()}] running job {nb_name} ---')
-    execute(nb_name, nb_path, config, mail_to, only_errors, pdf)
+    execute(nb_name, nb_path, mail_to, only_errors, pdf)
     click.echo(f'--- [{datetime.now().isoformat()}] job {nb_name} done. -->')
 
 
