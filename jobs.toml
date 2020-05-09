@@ -12,3 +12,12 @@
 cron = "* * * * *"
 notebook = "https://github.com/abulte/run-nb/raw/master/example.ipynb"
 mail_to = "alexandre.bulte@data.gouv.fr"
+
+[stats-weekly]
+cron = "14 8 * * 1"
+notebook = "https://github.com/etalab/notebooks/raw/schedule/stats/piwik-top-weekly.ipynb"
+only_errors = true
+pdf = false
+depends_on = [
+    { name = "piwik-top", url = "https://github.com/etalab/notebooks/raw/schedule/stats/piwik-top.ipynb" }
+]

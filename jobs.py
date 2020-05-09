@@ -1,3 +1,4 @@
+import os
 import toml
 
 import config
@@ -23,14 +24,15 @@ class JobFatalException(Exception):
     pass
 
 
-def get_job_execution_info(job_name, settings):
+def get_job_execution_info(job_name):
     jobs = get_jobs()
     job_data = jobs.get(job_name)
     if not job_data:
         raise JobConfException(f'Job "{job_name}" not found.')
 
     try:
-        nb_path = get_remote_nb(job_name, job_data['notebook'])
+        nb_path = get_remote_nb(job_name, job_data['notebook'],
+                                nb_depends=job_data.get('depends_on', []))
     except Exception as e:
         raise JobConfException(f'Failed to dowload "{nb_path}": {e}')
 
@@ -58,6 +60,8 @@ def execute(nb_name, nb_path,
     out_path.mkdir(parents=True, exist_ok=True)
     out_path = out_path / out_filename
 
+    os.environ['WORKING_DIR'] = str(nb_path.parent)
+
     is_error = False
     try:
         out_html = '%s.html' % out_path
@@ -76,3 +80,4 @@ def execute(nb_name, nb_path,
                 nb_name, out_path, pdf,
                 email=mail_to, is_error=is_error
             )
+        del os.environ['WORKING_DIR']

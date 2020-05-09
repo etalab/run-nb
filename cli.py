@@ -24,10 +24,9 @@ def execute_wrapper(nb_name, nb_path,
 
 @cli.command()
 @click.argument('job_name')
-@click.option('--settings', default='config.ini', help='Config file', type=click.Path(exists=True))
-def run(job_name, settings):
+def run(job_name):
     try:
-        job_args, job_kwargs, _ = get_job_execution_info(job_name, settings)
+        job_args, job_kwargs, _ = get_job_execution_info(job_name)
     except (JobConfException, JobFatalException) as e:
         click.secho(str(e), err=True, fg='red')
         return
@@ -35,8 +34,7 @@ def run(job_name, settings):
 
 
 @cli.command()
-@click.option('--settings', default='config.ini', help='Config file', type=click.Path(exists=True))
-def schedule(settings):
+def schedule():
     """Schedule jobs from config and launch a blocking scheduler or trigger a job immediately"""
     click.echo('Scheduling jobs...')
 
@@ -44,7 +42,7 @@ def schedule(settings):
 
     for job_name in jobs.keys():
         try:
-            job_args, job_kwargs, cron = get_job_execution_info(job_name, settings)
+            job_args, job_kwargs, cron = get_job_execution_info(job_name)
         except JobConfException as e:
             click.secho(str(e), err=True, fg='red')
             continue

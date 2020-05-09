@@ -11,7 +11,9 @@ class RemoteNotebookException(Exception):
 
 
 # TODO: handle cache
-def get(nb_name, nb_url):
+def get(nb_name, nb_url, nb_depends=[]):
+    for dep in nb_depends:
+        get(dep['name'], dep['url'])
     nb_folder = Path(config['notebook_folder'])
     nb_folder.mkdir(parents=True, exist_ok=True)
     if not nb_url.endswith('.ipynb'):
