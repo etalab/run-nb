@@ -1,3 +1,4 @@
+from datetime import datetime
 from pathlib import Path
 
 from flask import Flask, render_template, send_from_directory, abort
@@ -6,16 +7,34 @@ import config
 
 from jobs import get_jobs
 
+ERR_STR = 'Error occurred during execution'
+
 app = Flask(__name__)
-jobs = get_jobs()
+notebooks = get_jobs()
 
 output_folder = Path(config.get_nb_config()['output_folder'])
-notebooks = [x.parts[-1] for x in output_folder.iterdir() if x.is_dir()]
 
 
 @app.route('/')
 def index():
-    return render_template('index.html', notebooks=sorted(notebooks))
+    data = []
+    for (j, j_data) in notebooks.items():
+        n_data = {}
+        n_data['notebook'] = j
+        n_data['cron'] = j_data['cron']
+        path = Path(output_folder) / j
+        if path.exists():
+            runs = sorted([x for x in path.iterdir() if x.suffix == '.html'], reverse=True)
+            n_data['nb_runs'] = len(runs)
+            with runs[-1].open() as nfile:
+                n_data['last_status'] = 'error' if ERR_STR in nfile.read() else 'success'
+                n_data['_class'] = 'danger' if n_data['last_status'] else 'success'
+            n_data['last_run'] = datetime.fromtimestamp(runs[-1].stat().st_mtime)
+        else:
+            n_data['nb_runs'] = 0
+            n_data['_class'] = 'warning'
+        data.append(n_data)
+    return render_template('index.html', notebooks=data, dtnow=datetime.now())
 
 
 @app.route('/notebook/<notebook>')
@@ -30,11 +49,14 @@ def notebook(notebook):
     except ValueError:
         abort(404)
     res = []
-    outputs = sorted([x for x in path.iterdir() if x.suffix == '.html'], reverse=True)
-    for o in outputs:
-        with open(o) as ofile:
-            is_error = 'Error occurred during execution' in ofile.read()
-        res.append((o.parts[-1], is_error))
+    if path.exists():
+        outputs = sorted([x for x in path.iterdir() if x.suffix == '.html'], reverse=True)
+        for o in outputs:
+            with open(o) as ofile:
+                is_error = ERR_STR in ofile.read()
+            res.append((o.parts[-1], is_error))
+    else:
+        res = []
     return render_template('notebook.html', outputs=res, notebook=notebook)
 
 
