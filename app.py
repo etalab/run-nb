@@ -26,10 +26,10 @@ def index():
         if path.exists():
             runs = sorted([x for x in path.iterdir() if x.suffix == '.html'], reverse=True)
             n_data['nb_runs'] = len(runs)
-            with runs[-1].open() as nfile:
+            with runs[0].open() as nfile:
                 n_data['last_status'] = 'error' if ERR_STR in nfile.read() else 'success'
-                n_data['_class'] = 'danger' if n_data['last_status'] else 'success'
-            n_data['last_run'] = datetime.fromtimestamp(runs[-1].stat().st_mtime)
+                n_data['_class'] = 'danger' if n_data['last_status'] == 'error' else 'success'
+            n_data['last_run'] = datetime.fromtimestamp(runs[0].stat().st_mtime)
         else:
             n_data['nb_runs'] = 0
             n_data['_class'] = 'warning'
