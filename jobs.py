@@ -34,7 +34,7 @@ def get_job_execution_info(job_name):
         nb_path = get_remote_nb(job_name, job_data['notebook'],
                                 nb_depends=job_data.get('depends_on', []))
     except Exception as e:
-        raise JobConfException(f'Failed to dowload "{nb_path}": {e}')
+        raise JobConfException(f'Failed to download nb for "{job_name}": {e}')
 
     cron = job_data.get('cron')
     if not cron:
