@@ -1,3 +1,4 @@
+import os
 import click
 
 from datetime import datetime
@@ -6,10 +7,9 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
 from pytz import timezone
 
-import config
 from jobs import JobConfException, get_jobs, get_job_execution_info, JobFatalException, execute
 
-TIMEZONE = config.get_var('timezone', 'Europe/Paris')
+TIMEZONE = os.getenv('TZ', 'Europe/Paris')
 
 
 @click.group()
