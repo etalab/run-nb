@@ -87,4 +87,5 @@ def execute(nb_name, nb_path,
                 nb_name, out_path, pdf,
                 email=mail_to, is_error=is_error
             )
-        del os.environ['WORKING_DIR']
+        if os.getenv('WORKING_DIR'):
+            del os.environ['WORKING_DIR']
