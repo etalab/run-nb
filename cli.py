@@ -4,10 +4,12 @@ from datetime import datetime
 
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
+from pytz import timezone
 
+import config
 from jobs import JobConfException, get_jobs, get_job_execution_info, JobFatalException, execute
 
-scheduler = BlockingScheduler()
+TIMEZONE = config.get_var('timezone', 'Europe/Paris')
 
 
 @click.group()
@@ -39,6 +41,7 @@ def schedule():
     click.echo('Scheduling jobs...')
 
     jobs = get_jobs()
+    scheduler = BlockingScheduler(timezone=timezone(TIMEZONE))
 
     for job_name in jobs.keys():
         try:
