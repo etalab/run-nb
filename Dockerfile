@@ -8,7 +8,8 @@ RUN apt update && \
     apt clean && \
     rm -rf /var/lib/apt/lists
 
-RUN locale-gen "fr_FR.UTF-8"
+RUN sed -i -e 's/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/' /etc/locale.gen && \
+    locale-gen
 
 WORKDIR /app
 COPY requirements.txt /app/requirements.txt
