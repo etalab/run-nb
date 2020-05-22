@@ -4,8 +4,11 @@ FROM python:3.7-buster
 RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb
 RUN apt update && \
     apt install -y -q ./wkhtmltox_0.12.5-1.stretch_amd64.deb && \
+    apt install -y -q locales && \
     apt clean && \
     rm -rf /var/lib/apt/lists
+
+RUN locale-gen "fr_FR.UTF-8"
 
 WORKDIR /app
 COPY requirements.txt /app/requirements.txt
