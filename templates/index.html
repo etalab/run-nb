@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>run-nb</h1>
+<div class="row row-cols-1 row-cols-md-3">
+  {% for n in notebooks %}
+  <div class="col mb-4">
+    <div class="card">
+      <h5 class="card-header">{{ n.notebook }}</h5>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item text-white bg-{{ n._class }}">
+          {% if n.last_run %}
+          {{ n.last_run.strftime('%Y-%d-%m à %Hh%M')  }}
+          {% else %}
+          —
+          {% endif %}
+        </li>
+        <li class="list-group-item">{{ n.nb_runs }} exécution(s)</li>
+      </ul>
+      <div class="card-footer">
+        <a href="{{ url_for('notebook', notebook=n.notebook) }}" class="card-link">Voir les rapports</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<footer><em>{{ dtnow.strftime('%Y-%d-%m à %Hh%M') }}</em></footer>
+{% endblock %}

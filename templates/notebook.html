@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ notebook }}</h1>
+<ul>
+    {% for (o, error) in outputs %}
+    <li>
+        {% if error %}❌{% else %}✅{% endif %}
+        <a href="{{ url_for('output', notebook=notebook, output=o) }}">{{ o }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

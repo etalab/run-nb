@@ -1,0 +1,74 @@
+[digest-daily]
+cron = "0 8 * * *"
+notebook = "https://github.com/etalab/notebooks/raw/master/moderation/moderation.ipynb"
+depends_on = [
+    { name = "moderation_fn", url = "https://github.com/etalab/notebooks/raw/master/moderation/moderation_fn.ipynb" }
+]
+only_errors = false
+pdf = true
+recipient_alias_dgf = "digest"
+
+[digest-weekly]
+cron = "30 8 * * 2"
+notebook = "https://github.com/etalab/notebooks/raw/master/moderation/weekly-digest.ipynb"
+depends_on = [
+    { name = "moderation_fn", url = "https://github.com/etalab/notebooks/raw/master/moderation/moderation_fn.ipynb" }
+]
+only_errors = false
+pdf = true
+recipient_alias_dgf = "digest"
+
+[digest-monthly]
+cron = "15 8 25 * *"
+notebook = "https://github.com/etalab/notebooks/raw/master/moderation/monthly-digest.ipynb"
+depends_on = [
+    { name = "moderation_fn", url = "https://github.com/etalab/notebooks/raw/master/moderation/moderation_fn.ipynb" }
+]
+only_errors = false
+pdf = true
+recipient_alias_dgf = "digest"
+
+[users-creation]
+cron = "*/15 * * * *"
+notebook = "https://github.com/etalab/notebooks/raw/master/moderation/user-creation.ipynb"
+only_errors = true
+pdf = false
+
+[community-ressources]
+cron = "*/15 * * * *"
+notebook = "https://github.com/etalab/notebooks/raw/master/moderation/community-resources-creation.ipynb"
+only_errors = true
+pdf = false
+
+[stats-daily]
+cron = "12 8 * * *"
+notebook = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top-daily.ipynb"
+only_errors = true
+pdf = false
+depends_on = [
+    { name = "piwik-top", url = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top.ipynb" }
+]
+
+[stats-weekly]
+cron = "29 8 * * 1"
+notebook = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top-weekly.ipynb"
+only_errors = true
+pdf = false
+depends_on = [
+    { name = "piwik-top", url = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top.ipynb" }
+]
+
+[stats-monthly]
+cron = "22 8 1 * *"
+notebook = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top-monthly.ipynb"
+only_errors = true
+pdf = false
+depends_on = [
+    { name = "piwik-top", url = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top.ipynb" }
+]
+
+[irve]
+cron = "42 22 20 * *"
+notebook = "https://github.com/etalab/notebooks/raw/master/irve/irve.ipynb"
+only_errors = false
+pdf = false

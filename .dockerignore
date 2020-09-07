@@ -1,4 +1,5 @@
 output/
 .ipynb_checkpoints/
 input/
-notebooks/
+pyenv/
+__pycache__/
