@@ -9,7 +9,7 @@ pdf = true
 recipient_alias_dgf = "digest"
 
 [digest-weekly]
-cron = "30 8 * * 2"
+cron = "30 8 * * 1"
 notebook = "https://github.com/etalab/notebooks/raw/master/moderation/weekly-digest.ipynb"
 depends_on = [
     { name = "moderation_fn", url = "https://github.com/etalab/notebooks/raw/master/moderation/moderation_fn.ipynb" }
