@@ -53,12 +53,13 @@ def get_job_execution_info(job_name):
     return (job_name, nb_path), {
         'mail_to': mail_to,
         'only_errors': job_data.get('only_errors'),
-        'pdf': job_data.get('pdf')
+        'pdf': job_data.get('pdf'),
+        'truncate': job_data.get('truncate'),
     }, cron
 
 
 def execute(nb_name, nb_path,
-            mail_to=None, only_errors=False, pdf=False):
+            mail_to=None, only_errors=False, pdf=False, truncate=False):
     """Execute a notebook and send an email if asked"""
     output_folder = config.get_nb_config()['output_folder']
     suffix = datetime.now().strftime('%Y%m%d-%H%M%S')
@@ -89,3 +90,23 @@ def execute(nb_name, nb_path,
             )
         if os.getenv('WORKING_DIR'):
             del os.environ['WORKING_DIR']
+        # remove history if needed
+        if truncate:
+            do_truncate(nb_name, truncate)
+
+
+def do_truncate(nb_name, truncate=0):
+    if not truncate:
+        return 0
+    truncate = int(truncate)
+    output_folder = config.get_nb_config()['output_folder']
+    path = Path(output_folder) / nb_name
+    if path.exists():
+        runs = set(sorted([p.stem for p in path.iterdir()], reverse=True))
+        keep_runs = list(runs)[:truncate]
+        count = 0
+        for p in path.iterdir():
+            if p.stem not in keep_runs:
+                p.unlink()
+                count += 1
+    return count

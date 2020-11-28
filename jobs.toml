@@ -33,12 +33,16 @@ cron = "*/15 * * * *"
 notebook = "https://github.com/etalab/notebooks/raw/master/moderation/user-creation.ipynb"
 only_errors = true
 pdf = false
+# keep 100 runs as history
+truncate = 100
 
 [community-ressources]
 cron = "*/15 * * * *"
 notebook = "https://github.com/etalab/notebooks/raw/master/moderation/community-resources-creation.ipynb"
 only_errors = true
 pdf = false
+# keep 100 runs as history
+truncate = 100
 
 [stats-daily]
 cron = "12 8 * * *"

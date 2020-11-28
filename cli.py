@@ -7,7 +7,10 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
 from pytz import timezone
 
-from jobs import JobConfException, get_jobs, get_job_execution_info, JobFatalException, execute
+from jobs import (
+    JobConfException, get_jobs, get_job_execution_info,
+    JobFatalException, execute, do_truncate,
+)
 
 TIMEZONE = os.getenv('TZ', 'Europe/Paris')
 
@@ -17,10 +20,9 @@ def cli():
     pass
 
 
-def execute_wrapper(nb_name, nb_path,
-                    mail_to=None, only_errors=False, pdf=False):
+def execute_wrapper(nb_name, nb_path, **kwargs):
     click.echo(f'<-- [{datetime.now().isoformat()}] running job {nb_name} ---')
-    execute(nb_name, nb_path, mail_to, only_errors, pdf)
+    execute(nb_name, nb_path, **kwargs)
     click.echo(f'--- [{datetime.now().isoformat()}] job {nb_name} done. -->')
 
 
@@ -33,6 +35,15 @@ def run(job_name):
         click.secho(str(e), err=True, fg='red')
         return
     execute_wrapper(*job_args, **job_kwargs)
+
+
+@cli.command()
+@click.argument('job_name')
+@click.argument('truncate_value')
+def truncate(job_name, truncate_value):
+    """Truncate job runs to given value"""
+    count = do_truncate(job_name, truncate=truncate_value)
+    click.secho(f'Removed {count} files for job {job_name}.', fg='green')
 
 
 @cli.command()
