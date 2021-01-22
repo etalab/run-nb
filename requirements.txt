@@ -11,3 +11,6 @@ requests
 # irve notebook
 agate
 cchardet
+
+# audience
+pandas
