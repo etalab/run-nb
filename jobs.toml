@@ -82,3 +82,11 @@ cron = "42 10 2 1 *"
 notebook = "https://github.com/etalab/notebooks/raw/master/data.gouv.fr/audience/update-yearly-stats.ipynb"
 only_errors = false
 pdf = false
+
+[harvesters]
+cron = "42 8 * * 3"
+notebook = "https://raw.githubusercontent.com/etalab/notebooks/master/moderation/harvesters.ipynb"
+only_errors = true
+pdf = false
+# keep 100 runs as history
+truncate = 100
