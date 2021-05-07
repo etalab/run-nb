@@ -86,6 +86,9 @@ pdf = false
 [harvesters]
 cron = "42 8 * * 3"
 notebook = "https://raw.githubusercontent.com/etalab/notebooks/master/moderation/harvesters.ipynb"
+depends_on = [
+    { name = "moderation_fn", url = "https://github.com/etalab/notebooks/raw/master/moderation/moderation_fn.ipynb" }
+]
 only_errors = true
 pdf = false
 # keep 100 runs as history
