@@ -77,6 +77,12 @@ notebook = "https://github.com/etalab/notebooks/raw/master/irve/irve.ipynb"
 only_errors = false
 pdf = false
 
+[irve-v2]
+cron = "0 21 4 * *"
+notebook = "https://raw.githubusercontent.com/etalab/notebooks/master/irve/irve.ipynb"
+only_errors = false
+pdf = false
+
 [update-yearly-stats]
 cron = "42 10 2 1 *"
 notebook = "https://github.com/etalab/notebooks/raw/master/data.gouv.fr/audience/update-yearly-stats.ipynb"
