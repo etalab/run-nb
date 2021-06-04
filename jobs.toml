@@ -79,7 +79,7 @@ pdf = false
 
 [irve-v2]
 cron = "0 21 4 * *"
-notebook = "https://raw.githubusercontent.com/etalab/notebooks/master/irve/irve.ipynb"
+notebook = "https://raw.githubusercontent.com/etalab/notebooks/master/irve-v2/consolidation-irve-v2.ipynb"
 only_errors = false
 pdf = false
 
