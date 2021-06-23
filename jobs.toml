@@ -72,7 +72,7 @@ depends_on = [
 ]
 
 [irve]
-cron = "50 10 23 * *"
+cron = "45 11 23 * *"
 notebook = "https://github.com/etalab/notebooks/raw/master/irve/irve.ipynb"
 only_errors = false
 pdf = false
