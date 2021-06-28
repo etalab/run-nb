@@ -78,7 +78,7 @@ only_errors = false
 pdf = false
 
 [irve-v2]
-cron = "40 8 5 * *"
+cron = "00 14 1,7,14,21,28 * *"
 notebook = "https://raw.githubusercontent.com/etalab/notebooks/master/irve-v2/consolidation-irve-v2.ipynb"
 only_errors = false
 pdf = false
