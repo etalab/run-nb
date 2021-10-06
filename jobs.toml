@@ -1,12 +1,12 @@
-[digest-daily]
-cron = "0 8 * * *"
-notebook = "https://github.com/etalab/notebooks/raw/master/moderation/moderation.ipynb"
-depends_on = [
-    { name = "moderation_fn", url = "https://github.com/etalab/notebooks/raw/master/moderation/moderation_fn.ipynb" }
-]
-only_errors = false
-pdf = true
-recipient_alias_dgf = "digest"
+#[digest-daily]
+#cron = "0 8 * * *"
+#notebook = "https://github.com/etalab/notebooks/raw/master/moderation/moderation.ipynb"
+#depends_on = [
+#    { name = "moderation_fn", url = "https://github.com/etalab/notebooks/raw/master/moderation/moderation_fn.ipynb" }
+#]
+#only_errors = false
+#pdf = true
+#recipient_alias_dgf = "digest"
 
 [digest-weekly]
 cron = "30 8 * * 1"
