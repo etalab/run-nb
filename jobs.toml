@@ -36,52 +36,52 @@
 ## keep 100 runs as history
 #truncate = 100
 
-[community-ressources]
-cron = "*/15 * * * *"
-notebook = "https://github.com/etalab/notebooks/raw/master/moderation/community-resources-creation.ipynb"
-only_errors = true
-pdf = false
-# keep 100 runs as history
-truncate = 100
+#[community-ressources]
+#cron = "*/15 * * * *"
+#notebook = "https://github.com/etalab/notebooks/raw/master/moderation/community-resources-creation.ipynb"
+#only_errors = true
+#pdf = false
+## keep 100 runs as history
+#truncate = 100
 
-[stats-daily]
-cron = "12 8 * * *"
-notebook = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top-daily.ipynb"
-only_errors = true
-pdf = false
-depends_on = [
-    { name = "piwik-top", url = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top.ipynb" }
-]
+#[stats-daily]
+#cron = "12 8 * * *"
+#notebook = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top-daily.ipynb"
+#only_errors = true
+#pdf = false
+#depends_on = [
+#    { name = "piwik-top", url = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top.ipynb" }
+#]
 
-[stats-weekly]
-cron = "29 8 * * 1"
-notebook = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top-weekly.ipynb"
-only_errors = true
-pdf = false
-depends_on = [
-    { name = "piwik-top", url = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top.ipynb" }
-]
+#[stats-weekly]
+#cron = "29 8 * * 1"
+#notebook = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top-weekly.ipynb"
+#only_errors = true
+#pdf = false
+#depends_on = [
+#    { name = "piwik-top", url = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top.ipynb" }
+#]
 
-[stats-monthly]
-cron = "22 8 1 * *"
-notebook = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top-monthly.ipynb"
-only_errors = true
-pdf = false
-depends_on = [
-    { name = "piwik-top", url = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top.ipynb" }
-]
+#[stats-monthly]
+#cron = "22 8 1 * *"
+#notebook = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top-monthly.ipynb"
+#only_errors = true
+#pdf = false
+#depends_on = [
+#    { name = "piwik-top", url = "https://github.com/etalab/notebooks/raw/master/stats/piwik-top.ipynb" }
+#]
 
-[irve]
-cron = "30 9 24 * *"
-notebook = "https://github.com/etalab/notebooks/raw/master/irve/irve.ipynb"
-only_errors = false
-pdf = false
+#[irve]
+#cron = "30 9 24 * *"
+#notebook = "https://github.com/etalab/notebooks/raw/master/irve/irve.ipynb"
+#only_errors = false
+#pdf = false
 
-[irve-v2]
-cron = "00 15 1,6,12,18,23,28 * *"
-notebook = "https://raw.githubusercontent.com/etalab/notebooks/master/irve-v2/consolidation-irve-v2.ipynb"
-only_errors = false
-pdf = false
+#[irve-v2]
+#cron = "00 15 1,6,12,18,23,28 * *"
+#notebook = "https://raw.githubusercontent.com/etalab/notebooks/master/irve-v2/consolidation-irve-v2.ipynb"
+#only_errors = false
+#pdf = false
 
 [update-yearly-stats]
 cron = "42 10 2 1 *"
